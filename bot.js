@@ -24,12 +24,17 @@ client.on('interactionCreate', async (interaction) => {
 
     const matchingDids = await discoClient.lookupDiscord(recipient);
 
-    matchingDids.forEach((did) => {
-      issueGmCredential(did);
-      console.log('issuing gm cred to', did);
-    });
-
-    await interaction.reply(`GMs issued to: ${matchingDids}!`);
+    if (matchingDids === null) {
+      await interaction.reply("Disco account not found for the Discord account, please ensure you have one.");
+    } else {
+      
+      matchingDids.forEach((did) => {
+        issueGmCredential(did);
+        console.log('issuing gm cred to', did);
+      });
+    
+      await interaction.reply(`GMs issued to: ${matchingDids}. Check it out in https://app.disco.xyz!`);
+    }
   }
 });
 
