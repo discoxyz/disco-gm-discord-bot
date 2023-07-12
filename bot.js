@@ -2,10 +2,14 @@
 import DiscoClient from './discoClient.mjs';
 import { Client, GatewayIntentBits, SlashCommandBuilder } from 'discord.js';
 
+const PORT = process.env.PORT || 3001;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const discoClient = new DiscoClient();
 
 client.on('ready', () => {
+  client.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
