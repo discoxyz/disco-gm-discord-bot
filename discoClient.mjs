@@ -48,13 +48,15 @@ class DiscoClient {
           Authorization: `Bearer ${apiKey}`,
         }
       });
-  
-      if (!response.ok) {
-        //handle error where discord user not found - prompt user to  try agian or something.
-        throw new Error('Failed to get did. Please make sure you setup a data backpack');
+
+      let dids = [];
+
+      if (response.status === 404) {
+        dids = [];
+      } else {
+        dids = await response.json();
       }
-  
-      const dids = await response.json();
+      
       console.log('List of DIDs', dids);
 
       return dids;
