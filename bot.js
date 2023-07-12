@@ -34,7 +34,7 @@ client.on('interactionCreate', async (interaction) => {
         console.log('issuing gm cred to', did);
       });
     
-      await interaction.reply(`GMs issued to: ${matchingDids}. Check it out here: https://app.disco.xyz`);
+      await interaction.reply(`GMs issued to: ${recipient}. Check it out here: https://app.disco.xyz`);
     }
   }
 });
