@@ -1,11 +1,11 @@
 class DiscoClient {
-  async issueCredential (schemaUrl, ethAddress, subjectData) {
+  async issueCredential (schemaUrl, did, subjectData) {
       const apiKey = process.env.DISCO_API_KEY;  
       const requestUrl = 'https://api.disco.xyz/v1/credential';
 
       const requestBody = JSON.stringify({
         "schemaUrl": schemaUrl,
-        "recipientDID": `did:ethr:${ethAddress}`,
+        "recipientDID": did,
         "subjectData": subjectData
       });
     
