@@ -1,15 +1,14 @@
 
 import DiscoClient from './discoClient.mjs';
 import { Client, GatewayIntentBits, SlashCommandBuilder } from 'discord.js';
+import express from 'express';
 
 const PORT = process.env.PORT || 3001;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const discoClient = new DiscoClient();
+const app = express();
 
 client.on('ready', () => {
-  client.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
@@ -38,7 +37,7 @@ client.on('interactionCreate', async (interaction) => {
         console.log('issuing gm cred to', did);
       });
     
-      await interaction.reply(`GMs issued to: ${recipient}. Check it out here: https://app.disco.xyz`);
+      await interaction.reply(`GMs issued to: @${recipient}. Check it out here: https://app.disco.xyz`);
     }
   }
 });
@@ -56,3 +55,7 @@ const issueGmCredential = async (recipient) => {
     console.error('Failed to issue credential:', error);
   }
 };
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is running on port ${PORT}`);
+});
